@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h4>LogIn</h4>
+
+{% if messages %}
+  {{ messages }}
+{% endif %}
+
+<form class="" action='{% url 'accounts:login' %}'  method="POST">
+  {% csrf_token %}
+  <label for='email'>Email</label>
+  <input type="text" name="email" placeholder="Enter Work Email">
+
+  <label for='password'>Password</label>
+  <input type="password" name="password" placeholder="Enter Password">
+
+  <input type="submit" name="" value="submit">
+</form>
+
+{% endblock %}

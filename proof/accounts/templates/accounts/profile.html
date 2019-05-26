@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+<h1>Profile Page</h1>
+
+{% if user.is_authenticated %}<a href="{% url 'accounts:logout' %}">Logout</a>{% endif %}
+{% if not user.is_authenticated %}<a href="{% url 'accounts:login' %}">Login</a>{% endif %}
+
+{% if messages %}
+  {{ messages }}
+{% endif %}
+
+
+  {% if user.is_staff %}
+  <h3> Project Management </h3>
+
+  <ul>
+    {% for project in all_projects %}
+    <li> <a href="{% url 'projects:detail' id=project.id %}">{{ project.title }} </a></li>
+    {% endfor %}
+  </ul>
+
+  <h3> Employee Management </h3>
+  <ul>
+    {% for user in all_users %}
+      <li>{{ user.first_name }} &nbsp {{ user.last_name }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'accounts:register' %}">Add User</a>
+  <div class="">
+
+  </div>
+  {% endif %}
+
+  <h3> Your Profile </h3>
+  <p>Welcome: {{ user.first_name }} &nbsp {{ user.last_name }} </p>
+
+  <h3> Your Projects </h3>
+  <ul>
+    {% for project in my_projects %}
+      <li> <a href="{% url 'projects:detail' id=project.id %}">{{ project.title }} </a> </li>
+    {% endfor %}
+  </ul>
+  <h3>Your Tasks</h3>
+  <ul>
+    {% for task in tasks %}
+      <li> {{ task.title }} </li>
+    {% endfor %}
+  </ul>
+  {{ tasks.title }}
+
+
+
+{% endblock %}
